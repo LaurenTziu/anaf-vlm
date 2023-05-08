@@ -16,16 +16,50 @@ final class GetResponse implements Response
      * @use ArrayAccessible<array{general_data: array{tax_identification_number: int, search_date: string, company_name: string, address: string, registration_number: string, phone: string, fax: string, postal_code: string, document: string, registration_status: string, registration_date: string, activity_code: string, bank_account: string, ro_invoice_status: bool, authority_name: string}, vat_registration: array{status: bool, vat_periods: array<int, array{start_date: ?string, stop_date: ?string, stop_effective_date: ?string, message: ?string}>}, vat_at_checkout: array{start_date: string, stop_date: string, update_date: string, publish_date: string, updated_type: string}, inactive_state: array{inactivation_date: string, reactivation_date: string, publish_date: string, deletion_date: string, status: bool}, split_vat: array{start_date: string, stop_date: string, status: bool}, hq_address: array{street: string, no: string, city: string, city_code: string, county: string, county_code: string, county_short: string, country: string, details: string, postalCode: string}, fiscal_address: array{street: string, no: string, city: string, city_code: string, county: string, county_code: string, county_short: string, country: string, details: string, postalCode: string}}>
      */
     use ArrayAccessible;
-
-    private function __construct(
-        public readonly RetrieveResponseGeneralData $generalData,
-        public readonly RetrieveResponseVatRegistration $vatRegistration,
-        public readonly RetrieveResponseVatRegistrationAtCheckout $vatAtCheckout,
-        public readonly RetrieveResponseInactiveState $inactiveState,
-        public readonly RetrieveResponseSplitVatRegistration $splitVat,
-        public readonly RetrieveResponseHqAddress $hqAddress,
-        public readonly RetrieveResponseFiscalAddress $fiscalAddress,
-    ) {
+    /**
+     * @readonly
+     * @var \Anaf\Responses\Info\RetrieveResponseGeneralData
+     */
+    public $generalData;
+    /**
+     * @readonly
+     * @var \Anaf\Responses\Info\RetrieveResponseVatRegistration
+     */
+    public $vatRegistration;
+    /**
+     * @readonly
+     * @var \Anaf\Responses\Info\RetrieveResponseVatRegistrationAtCheckout
+     */
+    public $vatAtCheckout;
+    /**
+     * @readonly
+     * @var \Anaf\Responses\Info\RetrieveResponseInactiveState
+     */
+    public $inactiveState;
+    /**
+     * @readonly
+     * @var \Anaf\Responses\Info\RetrieveResponseSplitVatRegistration
+     */
+    public $splitVat;
+    /**
+     * @readonly
+     * @var \Anaf\Responses\Info\RetrieveResponseHqAddress
+     */
+    public $hqAddress;
+    /**
+     * @readonly
+     * @var \Anaf\Responses\Info\RetrieveResponseFiscalAddress
+     */
+    public $fiscalAddress;
+    private function __construct(RetrieveResponseGeneralData $generalData, RetrieveResponseVatRegistration $vatRegistration, RetrieveResponseVatRegistrationAtCheckout $vatAtCheckout, RetrieveResponseInactiveState $inactiveState, RetrieveResponseSplitVatRegistration $splitVat, RetrieveResponseHqAddress $hqAddress, RetrieveResponseFiscalAddress $fiscalAddress)
+    {
+        $this->generalData = $generalData;
+        $this->vatRegistration = $vatRegistration;
+        $this->vatAtCheckout = $vatAtCheckout;
+        $this->inactiveState = $inactiveState;
+        $this->splitVat = $splitVat;
+        $this->hqAddress = $hqAddress;
+        $this->fiscalAddress = $fiscalAddress;
     }
 
     /**
@@ -35,15 +69,7 @@ final class GetResponse implements Response
      */
     public static function from(array $attributes): self
     {
-        return new self(
-            RetrieveResponseGeneralData::from($attributes['date_generale']),
-            RetrieveResponseVatRegistration::from($attributes['inregistrare_scop_Tva']),
-            RetrieveResponseVatRegistrationAtCheckout::from($attributes['inregistrare_RTVAI']),
-            RetrieveResponseInactiveState::from($attributes['stare_inactiv']),
-            RetrieveResponseSplitVatRegistration::from($attributes['inregistrare_SplitTVA']),
-            RetrieveResponseHqAddress::from($attributes['adresa_sediu_social']),
-            RetrieveResponseFiscalAddress::from($attributes['adresa_domiciliu_fiscal']),
-        );
+        return new self(RetrieveResponseGeneralData::from($attributes['date_generale']), RetrieveResponseVatRegistration::from($attributes['inregistrare_scop_Tva']), RetrieveResponseVatRegistrationAtCheckout::from($attributes['inregistrare_RTVAI']), RetrieveResponseInactiveState::from($attributes['stare_inactiv']), RetrieveResponseSplitVatRegistration::from($attributes['inregistrare_SplitTVA']), RetrieveResponseHqAddress::from($attributes['adresa_sediu_social']), RetrieveResponseFiscalAddress::from($attributes['adresa_domiciliu_fiscal']));
     }
 
     /**

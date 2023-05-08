@@ -6,24 +6,33 @@ namespace Anaf\Responses\Info;
 
 final class RetrieveResponseSplitVatRegistration
 {
-    private function __construct(
-        public readonly string $startDate,
-        public readonly string $stopDate,
-        public readonly bool $status,
-
-    ) {
+    /**
+     * @readonly
+     * @var string
+     */
+    public $startDate;
+    /**
+     * @readonly
+     * @var string
+     */
+    public $stopDate;
+    /**
+     * @readonly
+     * @var bool
+     */
+    public $status;
+    private function __construct(string $startDate, string $stopDate, bool $status)
+    {
+        $this->startDate = $startDate;
+        $this->stopDate = $stopDate;
+        $this->status = $status;
     }
-
     /**
      * @param  array{dataInceputSplitTVA: string, dataAnulareSplitTVA: string, statusSplitTVA: bool}  $attributes
      */
     public static function from(array $attributes): self
     {
-        return new self(
-            $attributes['dataInceputSplitTVA'],
-            $attributes['dataAnulareSplitTVA'],
-            $attributes['statusSplitTVA'],
-        );
+        return new self($attributes['dataInceputSplitTVA'], $attributes['dataAnulareSplitTVA'], $attributes['statusSplitTVA']);
     }
 
     /**

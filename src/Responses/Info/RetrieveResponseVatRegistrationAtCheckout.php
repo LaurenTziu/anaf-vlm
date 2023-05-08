@@ -6,30 +6,52 @@ namespace Anaf\Responses\Info;
 
 final class RetrieveResponseVatRegistrationAtCheckout
 {
-    private function __construct(
-        public readonly string $startDate,
-        public readonly string $stopDate,
-        public readonly string $updateDate,
-        public readonly string $publishDate,
-        public readonly string $updatedType,
-        public readonly bool $status,
-    ) {
+    /**
+     * @readonly
+     * @var string
+     */
+    public $startDate;
+    /**
+     * @readonly
+     * @var string
+     */
+    public $stopDate;
+    /**
+     * @readonly
+     * @var string
+     */
+    public $updateDate;
+    /**
+     * @readonly
+     * @var string
+     */
+    public $publishDate;
+    /**
+     * @readonly
+     * @var string
+     */
+    public $updatedType;
+    /**
+     * @readonly
+     * @var bool
+     */
+    public $status;
+    private function __construct(string $startDate, string $stopDate, string $updateDate, string $publishDate, string $updatedType, bool $status)
+    {
+        $this->startDate = $startDate;
+        $this->stopDate = $stopDate;
+        $this->updateDate = $updateDate;
+        $this->publishDate = $publishDate;
+        $this->updatedType = $updatedType;
+        $this->status = $status;
     }
-
     /**
      * @param array{dataInceputTvaInc: string, dataSfarsitTvaInc: string, dataActualizareTvaInc: string,
      *     dataPublicareTvaInc: string, tipActTvaInc: string, statusTvaIncasare: bool} $attributes
      */
     public static function from(array $attributes): self
     {
-        return new self(
-            $attributes['dataInceputTvaInc'],
-            $attributes['dataSfarsitTvaInc'],
-            $attributes['dataActualizareTvaInc'],
-            $attributes['dataPublicareTvaInc'],
-            $attributes['tipActTvaInc'],
-            $attributes['statusTvaIncasare'],
-        );
+        return new self($attributes['dataInceputTvaInc'], $attributes['dataSfarsitTvaInc'], $attributes['dataActualizareTvaInc'], $attributes['dataPublicareTvaInc'], $attributes['tipActTvaInc'], $attributes['statusTvaIncasare']);
     }
 
     /**

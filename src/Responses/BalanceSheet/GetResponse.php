@@ -19,19 +19,47 @@ final class GetResponse implements Response
      * @use ArrayAccessible<array{year: int, tax_identification_number: int, company_name: string, activity_code: int, activity_name: string, indicators: array<string, array{indicator: string, value: int, indicator_name: string}>}>
      */
     use ArrayAccessible;
-
+    /**
+     * @readonly
+     * @var int
+     */
+    public $year;
+    /**
+     * @readonly
+     * @var int
+     */
+    public $taxIdentificationNumber;
+    /**
+     * @readonly
+     * @var string
+     */
+    public $companyName;
+    /**
+     * @readonly
+     * @var int
+     */
+    public $activityCode;
+    /**
+     * @readonly
+     * @var string
+     */
+    public $activityName;
+    /**
+     * @var array<string, RetrieveResponseIndicators>
+     * @readonly
+     */
+    public $indicators;
     /**
      * @param  array<string, RetrieveResponseIndicators>  $indicators
      */
-    private function __construct(
-        public readonly int $year,
-        public readonly int $taxIdentificationNumber,
-        public readonly string $companyName,
-        public readonly int $activityCode,
-        public readonly string $activityName,
-        public readonly array $indicators,
-
-    ) {
+    private function __construct(int $year, int $taxIdentificationNumber, string $companyName, int $activityCode, string $activityName, array $indicators)
+    {
+        $this->year = $year;
+        $this->taxIdentificationNumber = $taxIdentificationNumber;
+        $this->companyName = $companyName;
+        $this->activityCode = $activityCode;
+        $this->activityName = $activityName;
+        $this->indicators = $indicators;
     }
 
     /**
@@ -41,15 +69,17 @@ final class GetResponse implements Response
      */
     public static function from(array $attributes): self
     {
-        /*
-         * @see https://static.anaf.ro/static/10/Anaf/Declaratii_R/AplicatiiDec/UniversalCode_2012.pdf for indicators type
-         */
-
-        $indicatorType = match ($attributes['i'][0]['val_den_indicator']) {
-            'Numar mediu de salariati' => BL::class,
-            'Efectivul de personal privind activitatile economice' => OL::class,
-            default => BL::class,
-        };
+        switch ($attributes['i'][0]['val_den_indicator']) {
+            case 'Numar mediu de salariati':
+                $indicatorType = BL::class;
+                break;
+            case 'Efectivul de personal privind activitatile economice':
+                $indicatorType = OL::class;
+                break;
+            default:
+                $indicatorType = BL::class;
+                break;
+        }
 
         $indicators = array_reduce($attributes['i'], function (array $result, $item) use ($indicatorType): array {
             $replaceDiacritics = (string) iconv('UTF-8', 'ASCII//TRANSLIT', $item['val_den_indicator']);
@@ -64,14 +94,7 @@ final class GetResponse implements Response
             return $result;
         }, []);
 
-        return new self(
-            $attributes['an'],
-            $attributes['cui'],
-            $attributes['deni'],
-            $attributes['caen'],
-            $attributes['den_caen'],
-            $indicators,
-        );
+        return new self($attributes['an'], $attributes['cui'], $attributes['deni'], $attributes['caen'], $attributes['den_caen'], $indicators);
     }
 
     /**
@@ -85,10 +108,9 @@ final class GetResponse implements Response
             'company_name' => $this->companyName,
             'activity_code' => $this->activityCode,
             'activity_name' => $this->activityName,
-            'indicators' => array_map(
-                static fn (RetrieveResponseIndicators $response): array => $response->toArray(),
-                $this->indicators,
-            ),
+            'indicators' => array_map(static function (RetrieveResponseIndicators $response) : array {
+                return $response->toArray();
+            }, $this->indicators),
         ];
     }
 }
