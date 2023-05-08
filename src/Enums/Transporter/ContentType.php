@@ -7,7 +7,11 @@ namespace Anaf\Enums\Transporter;
 /**
  * @internal
  */
-enum ContentType: string
+class ContentType
 {
-    case JSON = 'application/json';
+    const JSON = 'application/json';
+}
+function __construct()
+{
+    return $this->JSON;
 }

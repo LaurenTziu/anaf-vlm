@@ -21,7 +21,8 @@ final class Anaf
 
         $baseUri = BaseUri::from('webservicesp.anaf.ro');
 
-        $headers = Headers::withContentType(ContentType::JSON);
+        $contentType = new ContentType(ContentType::JSON);
+        $headers = Headers::withContentType($contentType);
 
         $client = new GuzzleClient();
 

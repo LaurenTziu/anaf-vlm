@@ -33,7 +33,7 @@ final class Headers
     public static function withContentType(ContentType $contentType, string $suffix = ''): self
     {
         return new self([
-            'Content-Type' => $contentType->value.$suffix,
+            'Content-Type' => 'application/json',
         ]);
     }
 

@@ -67,8 +67,8 @@ final class HttpTransporter implements Transporter
         $contents = $response->getBody()->getContents();
         try {
             /** @var array{notFound?: array<int, int>} $response */
-            $response = json_decode($contents, true, 512, JSON_THROW_ON_ERROR);
-        } catch (JsonException $jsonException) {
+            $response = json_decode($contents, true, 512);
+        } catch (Exception $jsonException) {
             throw new UnserializableResponse($jsonException);
         }
         if (! array_key_exists('notFound', $response)) {

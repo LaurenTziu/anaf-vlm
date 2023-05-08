@@ -7,8 +7,8 @@ namespace Anaf\Enums\Transporter;
 /**
  * @internal
  */
-enum Method: string
+class Method
 {
-    case GET = 'GET';
-    case POST = 'POST';
+    const GET = 'GET';
+    const POST = 'POST';
 }

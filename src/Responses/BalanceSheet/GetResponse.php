@@ -89,8 +89,8 @@ final class GetResponse implements Response
             /**
              * @var array<string, RetrieveResponseIndicators> $result
              */
-            $result[$indicatorType::from($cleanKey)->name] = RetrieveResponseIndicators::from($item);
 
+            $result[$indicatorType::from($cleanKey)] = RetrieveResponseIndicators::from($item);
             return $result;
         }, []);
 

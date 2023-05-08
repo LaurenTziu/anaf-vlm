@@ -39,10 +39,13 @@ final class Payload
      *
      * @param  array<int, array{cui: string, data: string}>  $parameters
      */
-    private function __construct(ContentType $contentType, Method $method, ResourceUri $uri, array $parameters = [])
+    private function __construct( $contentType, $method, ResourceUri $uri, array $parameters = [])
     {
-        $this->contentType = $contentType;
-        $this->method = $method;
+        
+        $contentTypeS  = new ContentType();
+        $met  = new Method();
+        $this->contentType = $contentTypeS;
+        $this->method =$method;
         $this->uri = $uri;
         $this->parameters = $parameters;
         // ..
@@ -86,7 +89,6 @@ final class Payload
         if ($this->method === Method::POST) {
             $body = json_encode($this->parameters, JSON_THROW_ON_ERROR);
         }
-
-        return new Psr7Request($this->method->value, $uri, $headers->toArray(), $body);
+        return new Psr7Request($this->method, $uri, $headers->toArray(), $body);
     }
 }
