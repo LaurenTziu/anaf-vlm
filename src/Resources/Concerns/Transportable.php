@@ -12,7 +12,7 @@ trait Transportable
     /**
      * Creates a Client instance with the given Tax Identification Number.
      */
-    public function __construct(private readonly Transporter $transporter, private readonly TaxIdentificationNumber $taxIdentificationNumber)
+    public function __construct(private Transporter $transporter, private TaxIdentificationNumber $taxIdentificationNumber)
     {
         // ..
     }

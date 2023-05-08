@@ -12,10 +12,16 @@ use Anaf\Contracts\Stringable;
 final class TaxIdentificationNumber implements Stringable
 {
     /**
+     * @readonly
+     * @var string
+     */
+    private $taxIndentificationNumber;
+    /**
      * Creates a new tax identification number value object.
      */
-    private function __construct(private readonly string $taxIndentificationNumber)
+    private function __construct(string $taxIndentificationNumber)
     {
+        $this->taxIndentificationNumber = $taxIndentificationNumber;
         // ..
     }
 

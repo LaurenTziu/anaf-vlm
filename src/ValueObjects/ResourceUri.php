@@ -12,10 +12,16 @@ use Anaf\Contracts\Stringable;
 final class ResourceUri implements Stringable
 {
     /**
+     * @readonly
+     * @var string
+     */
+    private $uri;
+    /**
      * Creates a new ResourceUri value object.
      */
-    private function __construct(private readonly string $uri)
+    private function __construct(string $uri)
     {
+        $this->uri = $uri;
         // ..
     }
 

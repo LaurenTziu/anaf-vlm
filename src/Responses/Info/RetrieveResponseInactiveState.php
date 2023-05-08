@@ -6,28 +6,45 @@ namespace Anaf\Responses\Info;
 
 final class RetrieveResponseInactiveState
 {
-    private function __construct(
-        public readonly string $inactivationDate,
-        public readonly string $reactivationDate,
-        public readonly string $publishDate,
-        public readonly string $deletionDate,
-        public readonly bool $status,
-
-    ) {
+    /**
+     * @readonly
+     * @var string
+     */
+    public $inactivationDate;
+    /**
+     * @readonly
+     * @var string
+     */
+    public $reactivationDate;
+    /**
+     * @readonly
+     * @var string
+     */
+    public $publishDate;
+    /**
+     * @readonly
+     * @var string
+     */
+    public $deletionDate;
+    /**
+     * @readonly
+     * @var bool
+     */
+    public $status;
+    private function __construct(string $inactivationDate, string $reactivationDate, string $publishDate, string $deletionDate, bool $status)
+    {
+        $this->inactivationDate = $inactivationDate;
+        $this->reactivationDate = $reactivationDate;
+        $this->publishDate = $publishDate;
+        $this->deletionDate = $deletionDate;
+        $this->status = $status;
     }
-
     /**
      * @param  array{dataInactivare: string, dataReactivare: string, dataPublicare: string, dataRadiere: string, statusInactivi: bool}  $attributes
      */
     public static function from(array $attributes): self
     {
-        return new self(
-            $attributes['dataInactivare'],
-            $attributes['dataReactivare'],
-            $attributes['dataPublicare'],
-            $attributes['dataRadiere'],
-            $attributes['statusInactivi'],
-        );
+        return new self($attributes['dataInactivare'], $attributes['dataReactivare'], $attributes['dataPublicare'], $attributes['dataRadiere'], $attributes['statusInactivi']);
     }
 
     /**

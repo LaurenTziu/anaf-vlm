@@ -16,21 +16,74 @@ final class GetResponse implements Response
      * @use ArrayAccessible<array{tax_identification_number: int, search_date: string, entity_name: string, address: string, phone: string, postal_code: string, document: string, registration_status: string, start_date: string, end_date: string, status: bool}>
      */
     use ArrayAccessible;
-
-    private function __construct(
-        public readonly int $taxIdentificationNumber,
-        public readonly string $searchDate,
-        public readonly string $entityName,
-        public readonly string $address,
-        public readonly string $phone,
-        public readonly string $postalCode,
-        public readonly string $document,
-        public readonly string $registrationStatus,
-        public readonly string $startDate,
-        public readonly string $endDate,
-        public readonly bool $status,
-
-    ) {
+    /**
+     * @readonly
+     * @var int
+     */
+    public $taxIdentificationNumber;
+    /**
+     * @readonly
+     * @var string
+     */
+    public $searchDate;
+    /**
+     * @readonly
+     * @var string
+     */
+    public $entityName;
+    /**
+     * @readonly
+     * @var string
+     */
+    public $address;
+    /**
+     * @readonly
+     * @var string
+     */
+    public $phone;
+    /**
+     * @readonly
+     * @var string
+     */
+    public $postalCode;
+    /**
+     * @readonly
+     * @var string
+     */
+    public $document;
+    /**
+     * @readonly
+     * @var string
+     */
+    public $registrationStatus;
+    /**
+     * @readonly
+     * @var string
+     */
+    public $startDate;
+    /**
+     * @readonly
+     * @var string
+     */
+    public $endDate;
+    /**
+     * @readonly
+     * @var bool
+     */
+    public $status;
+    private function __construct(int $taxIdentificationNumber, string $searchDate, string $entityName, string $address, string $phone, string $postalCode, string $document, string $registrationStatus, string $startDate, string $endDate, bool $status)
+    {
+        $this->taxIdentificationNumber = $taxIdentificationNumber;
+        $this->searchDate = $searchDate;
+        $this->entityName = $entityName;
+        $this->address = $address;
+        $this->phone = $phone;
+        $this->postalCode = $postalCode;
+        $this->document = $document;
+        $this->registrationStatus = $registrationStatus;
+        $this->startDate = $startDate;
+        $this->endDate = $endDate;
+        $this->status = $status;
     }
 
     /**
@@ -40,19 +93,7 @@ final class GetResponse implements Response
      */
     public static function from(array $attributes): self
     {
-        return new self(
-            $attributes['cui'],
-            $attributes['data'],
-            $attributes['denumire'],
-            $attributes['adresa'],
-            $attributes['telefon'],
-            $attributes['codPostal'],
-            $attributes['act'],
-            $attributes['stare_inregistrare'],
-            $attributes['dataInceputRegCult'],
-            $attributes['dataAnulareRegCult'],
-            $attributes['statusRegCult'],
-        );
+        return new self($attributes['cui'], $attributes['data'], $attributes['denumire'], $attributes['adresa'], $attributes['telefon'], $attributes['codPostal'], $attributes['act'], $attributes['stare_inregistrare'], $attributes['dataInceputRegCult'], $attributes['dataAnulareRegCult'], $attributes['statusRegCult']);
     }
 
     /**

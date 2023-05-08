@@ -15,19 +15,38 @@ use GuzzleHttp\Psr7\Request as Psr7Request;
 final class Payload
 {
     /**
+     * @readonly
+     * @var \Anaf\Enums\Transporter\ContentType
+     */
+    private $contentType;
+    /**
+     * @readonly
+     * @var \Anaf\Enums\Transporter\Method
+     */
+    private $method;
+    /**
+     * @readonly
+     * @var \Anaf\ValueObjects\ResourceUri
+     */
+    private $uri;
+    /**
+     * @var array<int, array{cui: string, data: string}>
+     * @readonly
+     */
+    private $parameters = [];
+    /**
      * Creates a new Request value object.
      *
      * @param  array<int, array{cui: string, data: string}>  $parameters
      */
-    private function __construct(
-        private readonly ContentType $contentType,
-        private readonly Method $method,
-        private readonly ResourceUri $uri,
-        private readonly array $parameters = [],
-    ) {
+    private function __construct(ContentType $contentType, Method $method, ResourceUri $uri, array $parameters = [])
+    {
+        $this->contentType = $contentType;
+        $this->method = $method;
+        $this->uri = $uri;
+        $this->parameters = $parameters;
         // ..
     }
-
     /**
      * Creates a new Payload value object from the given parameters.
      *

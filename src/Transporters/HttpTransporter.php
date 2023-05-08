@@ -21,13 +21,31 @@ use Psr\Http\Client\ClientInterface;
 final class HttpTransporter implements Transporter
 {
     /**
+     * @readonly
+     * @var \Psr\Http\Client\ClientInterface
+     */
+    private $client;
+    /**
+     * @readonly
+     * @var \Anaf\ValueObjects\Transporter\BaseUri
+     */
+    private $baseUri;
+    /**
+     * @readonly
+     * @var \Anaf\ValueObjects\Transporter\Headers
+     */
+    private $headers;
+    /**
      * Creates a new Http Transporter instance.
      */
     public function __construct(
-        private readonly ClientInterface $client,
-        private readonly BaseUri $baseUri,
-        private readonly Headers $headers
+        ClientInterface $client,
+        BaseUri $baseUri,
+        Headers $headers
     ) {
+        $this->client = $client;
+        $this->baseUri = $baseUri;
+        $this->headers = $headers;
         // ..
     }
 

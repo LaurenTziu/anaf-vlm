@@ -5,7 +5,8 @@
     "license": "MIT",
     "authors": [
         {
-            "name": "Laurentiu V."
+            "name": "Laurentiu V.",
+            "email": "laurentiu@managementit.ro"
         }
     ],
     "require": {

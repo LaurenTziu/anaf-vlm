@@ -6,23 +6,33 @@ namespace Anaf\Responses\BalanceSheet;
 
 final class RetrieveResponseIndicators
 {
-    private function __construct(
-        public readonly string $indicator,
-        public readonly int $value,
-        public readonly string $indicatorName,
-    ) {
+    /**
+     * @readonly
+     * @var string
+     */
+    public $indicator;
+    /**
+     * @readonly
+     * @var int
+     */
+    public $value;
+    /**
+     * @readonly
+     * @var string
+     */
+    public $indicatorName;
+    private function __construct(string $indicator, int $value, string $indicatorName)
+    {
+        $this->indicator = $indicator;
+        $this->value = $value;
+        $this->indicatorName = $indicatorName;
     }
-
     /**
      * @param  array{indicator: string, val_indicator: int, val_den_indicator: string}  $attributes
      */
     public static function from(array $attributes): self
     {
-        return new self(
-            $attributes['indicator'],
-            $attributes['val_indicator'],
-            $attributes['val_den_indicator'],
-        );
+        return new self($attributes['indicator'], $attributes['val_indicator'], $attributes['val_den_indicator']);
     }
 
     /**

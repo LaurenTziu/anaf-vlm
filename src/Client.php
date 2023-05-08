@@ -13,10 +13,22 @@ use Anaf\ValueObjects\TaxIdentificationNumber;
 final class Client
 {
     /**
+     * @readonly
+     * @var \Anaf\Contracts\Transporter
+     */
+    private $transporter;
+    /**
+     * @readonly
+     * @var \Anaf\ValueObjects\TaxIdentificationNumber
+     */
+    private $taxIdentificationNumber;
+    /**
      * Creates a Client instance with the given Tax Identification Number.
      */
-    public function __construct(private readonly Transporter $transporter, private readonly TaxIdentificationNumber $taxIdentificationNumber)
+    public function __construct(Transporter $transporter, TaxIdentificationNumber $taxIdentificationNumber)
     {
+        $this->transporter = $transporter;
+        $this->taxIdentificationNumber = $taxIdentificationNumber;
         // ..
     }
 

@@ -12,12 +12,18 @@ use Anaf\Enums\Transporter\ContentType;
 final class Headers
 {
     /**
+     * @var array<string, string>
+     * @readonly
+     */
+    private $headers;
+    /**
      * Creates a new Headers value object.
      *
      * @param  array<string, string>  $headers
      */
-    private function __construct(private readonly array $headers)
+    private function __construct(array $headers)
     {
+        $this->headers = $headers;
         // ..
     }
 
