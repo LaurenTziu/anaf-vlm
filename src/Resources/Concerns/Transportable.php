@@ -9,8 +9,8 @@ use Anaf\ValueObjects\TaxIdentificationNumber;
 
 trait Transportable
 {
-    private Transporter $transporter;
-    private TaxIdentificationNumber $taxIdentificationNumber;
+    public $transporter;
+    public $taxIdentificationNumber;
     /**
      * Creates a Client instance with the given Tax Identification Number.
      */
